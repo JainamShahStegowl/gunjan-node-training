@@ -2,11 +2,12 @@
 const mysql = require('mysql2');
 
 const pool = mysql.createPool({
-    host: process.env.host,
-    user: process.env.user,
-    database: process.env.database,
-    password: process.env.password
+    host: 'localhost',
+    user: 'root',
+    database: 'nodejs',
+    password: 'root'
 });
+
 
 module.exports = pool;
 // pool.query("SELECT * FROM products WHERE productId<3", function(err, rows, fields) {
