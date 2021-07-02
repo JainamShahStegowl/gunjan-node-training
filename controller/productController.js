@@ -16,8 +16,13 @@ productController.fetchById = (req, res) => {
 }
 
 productController.deleteById = (req, res) => {
-    Product.deleteById(req.params.id, (product) => {
-        res.json(product)
+    Product.deleteFromCart(req.params.id, (product) => {
+        if(product.success==true){
+            Product.deleteById(req.params.id,(product)=>{
+                res.json(product)
+            })
+        }
+        //res.json(product.success)
     })
 }
 

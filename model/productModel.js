@@ -36,7 +36,11 @@ module.exports = class Product {
             if (err) {
                 console.log(err)
             }
-            callback(rows)
+            else{
+            callback({
+                success:true
+            })
+        }
         })
         pool.query("DELETE from products where productId =?", [id], function (err, rows, fields) {
             if (err) {
@@ -67,5 +71,24 @@ module.exports = class Product {
             }
             //return rows
         }) 
+    }
+
+    static deleteFromCart(id, callback) {
+
+        pool.query("SELECT * FROM `cart` WHERE `productId`=?", [id], function (err, rows, fields) {
+            if (err) {
+                console.log(err)
+            }
+            else{
+            callback({
+                success:true
+            })
+        }
+        })
+        pool.query("DELETE from cart where productId =?", [id], function (err, rows, fields) {
+            if (err) {
+                console.log(err)
+            }
+        })
     }
 }
