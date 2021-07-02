@@ -6,7 +6,6 @@ productController.list = (req, res) => {
         res.json(products)
         console.log('in contoller' + products)
     });
-    //Product.fetchAll() 
 }
 
 productController.fetchById = (req, res) => {
@@ -17,25 +16,24 @@ productController.fetchById = (req, res) => {
 
 productController.deleteById = (req, res) => {
     Product.deleteFromCart(req.params.id, (product) => {
-        if(product.success==true){
-            Product.deleteById(req.params.id,(product)=>{
+        if (product.success == true) {
+            Product.deleteById(req.params.id, (product) => {
                 res.json(product)
             })
         }
-        //res.json(product.success)
     })
 }
 
-productController.add=(req,res)=>{
-    const product=new Product(req.body.productName,req.body.quantity,req.body.price,req.body.image);
+productController.add = (req, res) => {
+    const product = new Product(req.body.productName, req.body.quantity, req.body.price, req.body.image);
     product.store();
     res.json(product)
 }
 
-productController.update=(req,res)=>{
-    const product=new Product(req.body.productName,req.body.quantity,req.body.price,req.body.image);
+productController.update = (req, res) => {
+    const product = new Product(req.body.productName, req.body.quantity, req.body.price, req.body.image);
     product.update(req.params.id);
     res.json(product)
 }
-//productController.list()
+
 module.exports = productController
