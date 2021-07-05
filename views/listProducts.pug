@@ -1,0 +1,19 @@
+extends layouts/main.pug
+
+block content
+    div.row.text-center.mb-3
+        h2.display-5 Products
+
+    if products.length > 0
+        div.row.justify-content-center
+            each product in products 
+                div.col.justify-content-center.d-flex.mb-5
+                    div.card.bg-teal(style="width: 18rem;")
+                        div.card-body
+                            h5.card-title #{product.productName}
+                            h6.card-subtitle.mb-2.text-muted #{product.quantity}
+                            p.card-text Price: #{product.price}
+    else 
+        .row.text-center 
+            h3.display-7 No Product Found
+            

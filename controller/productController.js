@@ -3,8 +3,11 @@ const Product = require('../model/productModel');
 
 productController.list = (req, res) => {
     Product.fetchAll((products) => {
-        res.json(products)
-        console.log('in contoller' + products)
+        res.render("listProducts", {
+            pageTitle: "Products",
+            products: products,
+            path: '/products'
+        });
     });
 }
 

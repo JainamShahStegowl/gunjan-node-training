@@ -18,6 +18,9 @@ app.use(express.json());
 app.use('/products', router)
 app.use('/cart', router1)
 
+app.get('/', (req, res) => {
+    res.render('layouts/main');
+})
 const port = 5000
 
 app.listen(port, (err) => {
