@@ -1,0 +1,30 @@
+extends layouts/main.pug
+
+block header 
+    script(src="//cdn.jsdelivr.net/npm/sweetalert2@11") 
+
+block content
+    .row.text-center.mb-3
+        h2.display-5 Edit Product
+    form(id="editForm")
+        div.row.justify-content-center
+            div.col-5
+                div.mb-3
+                    //p #{product.productName}
+                    label.form-label(for="pname") Product Name
+                    input.form-control(type="text" id="pname" name="productName" value = product.productName)
+                div.mb-3
+                    label.form-label(for="quantity") Quantity
+                    input.form-control(type="number" id="quantity" name="quantity" value = product.quantity)
+                div.mb-3
+                    label.form-label(for="price") Price
+                    input.form-control(type="number" id="price" name="price" value = product.price)
+                div.form-group
+                    label.form-label(for="image") Image
+                    input.form-control(type="file" id="image" name="image", value=product.image)
+                div.text-center
+                    input(type="hidden" id="ProductId" name="ProductId" value=product.productId)     
+                    button.btn.btn-primary(type="submit" id='submit') Submit
+
+block scripts
+    script(src="/js/editProduct.js") 

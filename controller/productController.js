@@ -54,11 +54,22 @@ productController.add = (req, res) => {
     res.redirect('/products')
 }
 
+productController.updatePath = (req, res) => {
+    const productId = parseInt(req.params.id);
+    //console.log(productId)
+    Product.fetchById(productId, (product) => {
+        res.status(200).render('updateSingle', {
+            product: product
+        });
+        console.log(product)
+    });
+};
 
 productController.update = (req, res) => {
     const product = new Product(req.body.productName, req.body.quantity, req.body.price, req.body.image);
     product.update(req.params.id);
     res.json(product)
 }
+
 
 module.exports = productController

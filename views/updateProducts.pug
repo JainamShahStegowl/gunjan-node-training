@@ -26,7 +26,7 @@ block content
                             //td #{product.productId}
                             td.text-center.row.justify-content-center
                                 .col-3
-                                    a.btn.btn-primary(href='#') Edit 
+                                    a.btn.btn-primary(href='/products/updatePath/'+product.productId) Edit 
                                 .col-3
                                     button.btn.btn-danger.delete-btn(id="deleteBtn" + product.productId data-id=product.productId) Delete
                 else
