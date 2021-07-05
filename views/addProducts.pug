@@ -1,0 +1,24 @@
+extends layouts/main.pug
+
+block content
+    .row.text-center.mb-3
+        h2.display-5 Add User
+
+
+    form(action="/products" method="post")
+        div.row.justify-content-center
+            div.col-5
+                div.form-group
+                    label.form-label(for="pname") Product Name
+                    input.form-control(type="text" id="pname" name="productName")
+                div.form-group
+                    label.form-label(for="price") Price
+                    input.form-control(type="text" id="price" name="price")
+                div.mb-3
+                    label.form-label(for="quantity") Quantity
+                    input.form-control(type="number" id="age" name="quantity")
+                div.form-group
+                    label.form-label(for="image") Image
+                    input.form-control(type="file" id="image" name="image")
+                div.text-center
+                    button.btn.btn-primary(type="submit") Submit

@@ -27,10 +27,18 @@ productController.deleteById = (req, res) => {
     })
 }
 
+productController.addpath = (req, res) => {
+    res.render("addProducts", {
+        pageTitle: "Add Product",
+        path: "/products/addpath"
+    });
+}
+
 productController.add = (req, res) => {
     const product = new Product(req.body.productName, req.body.quantity, req.body.price, req.body.image);
     product.store();
-    res.json(product)
+    //res.json(product)
+    res.redirect('/products')
 }
 
 productController.update = (req, res) => {
