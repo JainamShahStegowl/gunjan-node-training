@@ -1,0 +1,36 @@
+extends layouts/main1.pug
+
+block header 
+    script(src="//cdn.jsdelivr.net/npm/sweetalert2@11")
+    
+block content
+    .row.text-center.mb-3
+        h2.display-5 Products in Cart
+
+    .row.justify-content-center
+        table.table
+            thead 
+                tr
+                    th Product Name
+                    th Quantity
+                    th Price
+                    th total Price
+                    th.text-center Action
+            tbody
+                if products.length > 0
+                    each product in products
+                        tr
+                            td #{product.productName}
+                            td #{product.quantity}
+                            td &#8377 #{product.price}
+                            td #{product.total_price}
+                            td.text-center.row.justify-content-center
+                                
+                                .col-3
+                                    button.btn.btn-danger.delete-btn(id="deleteBtn" + product.cartId data-id=product.cartId) Delete
+                else
+                    tr 
+                        td.text-center(colspan="4") No Data Found
+
+block scripts 
+    script(src="/js/deleteCart.js")                     

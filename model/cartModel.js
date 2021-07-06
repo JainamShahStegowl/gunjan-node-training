@@ -7,7 +7,6 @@ module.exports = class Cart {
             if (err) {
                 console.log(err)
             }
-            console.log(rows)
             callback(rows)
         })
     }
@@ -20,7 +19,7 @@ module.exports = class Cart {
             callback(rows)
         })
     }
-    
+
     static addToCart(id, quantity, callback) {
         pool.query("INSERT INTO cart(productId,price,quantity) values(?,(SELECT price FROM products WHERE productId=?),?)", [id, id, quantity], function (err, rows, fields) {
             if (err) {
@@ -35,7 +34,7 @@ module.exports = class Cart {
     }
 
     static viewInCart(callback) {
-        pool.query("SELECT C.productId,P.productName,C.quantity,C.price,C.quantity*C.price as total_price FROM cart AS C,products AS P where C.productId=P.productId", function (err, rows, fields) {
+        pool.query("SELECT C.cartId,C.productId,P.productName,C.quantity,C.price,C.quantity*C.price as total_price FROM cart AS C,products AS P where C.productId=P.productId", function (err, rows, fields) {
             if (err) {
                 console.log(err)
             }

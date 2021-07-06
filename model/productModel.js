@@ -13,7 +13,6 @@ module.exports = class Product {
             if (err) {
                 console.log(err)
             }
-            console.log(rows)
             callback(rows)
         })
 

@@ -65,7 +65,6 @@ productController.updatePath = async (req, res, next) => {
     });
 };
 productController.update = (req, res) => {
-    console.log(parseInt(req.body.quantity))
     const product = new Product(req.body.productName, req.body.quantity, req.body.price, req.body.image);
     product.update(req.params.id);
     res.json({

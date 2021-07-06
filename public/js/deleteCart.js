@@ -5,7 +5,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "delete",
-            url: "/products/" + id,
+            url: "/cart/" + id,
             success: function (response) {
                 if (response.success === true) {
                     Swal.fire({
