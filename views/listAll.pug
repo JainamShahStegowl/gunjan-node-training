@@ -1,0 +1,41 @@
+extends layouts/main1.pug
+
+block header 
+    script(src="//cdn.jsdelivr.net/npm/sweetalert2@11")
+    
+block content
+    .row.text-center.mb-3
+        h2.display-5 Add to Cart
+
+    .row.justify-content-center
+        table.table
+            thead 
+                tr
+                    th Product Name
+                    th Quantity
+                    th Price
+                    //th Id
+                    th.text-center Action
+            tbody
+                if products.length > 0
+                    each product in products
+                        tr
+                            td #{product.productName}
+                            if product.quantity==0
+                                td Sold Out!!
+                            else if product.quantity<10
+                                td Only few available!! Order fast!! 
+                            else 
+                                td Available
+                            td &#8377 #{product.price}
+                            //td #{product.productId}
+                            td.text-center.row.justify-content-center
+                                .col-3
+                                    a.btn.btn-primary(href='#'+product.productId) Add
+                                
+                else
+                    tr 
+                        td.text-center(colspan="4") No Data Found
+
+block scripts 
+    script(src="/js/deleteProduct.js")                     

@@ -3,8 +3,11 @@ const Cart = require('../model/cartModel')
 
 cartController.fetchAllToAdd = (req, res) => {
     Cart.fetchAllToAdd((products) => {
-        res.json(products)
-    });
+        res.render("listAll", {
+            pageTitle: "Products",
+            products: products,
+            path: '/cart'
+        });    });
 }
 
 cartController.addToCart = (req, res) => {
