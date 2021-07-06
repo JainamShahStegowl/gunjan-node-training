@@ -56,7 +56,7 @@ module.exports = class Product {
     }
 
     update(id) {
-        pool.query("UPDATE products SET productName=?, quantity=?, price=?, image=? WHERE productId=?;", [this.productName, this.quantity, this.price, this.image, id], function (err, rows, fields) {
+        pool.query("UPDATE products SET productName=?, quantity=?, price=?, image=? WHERE productId=?;", [this.productName, this.quantity, this.price, this.image, parseInt(id)], function (err, rows, fields) {
             if (err) {
                 console.log(err)
             }

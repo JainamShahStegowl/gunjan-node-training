@@ -13,19 +13,19 @@ $(document).ready(function () {
 
     $('#editForm').submit(function (e) {
         e.preventDefault();
-    
+
         let formData = $('#editForm').serializeArray();
-        let id = $('#productId').val();
+        let id = $('#ProductId').val();
         let data = {};
-    
+
         formData.forEach(({ name, value }) => {
             data[name] = value;
         });
-    
+
         $.ajax({
             type: "put",
-            url: "/products/" + id,
-            data: {...data},
+            url: "/products/" + parseInt(id),
+            data: { ...data },
             dataType: "json",
             success: function (response) {
                 if (response.success === true) {

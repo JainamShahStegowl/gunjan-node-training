@@ -54,21 +54,24 @@ productController.add = (req, res) => {
     res.redirect('/products')
 }
 
-productController.updatePath = (req, res) => {
+productController.updatePath = async (req, res, next) => {
     const productId = parseInt(req.params.id);
-    //console.log(productId)
     Product.fetchById(productId, (product) => {
-        res.status(200).render('updateSingle', {
-            product: product
-        });
-        console.log(product)
+        res.render('updateSingle', {
+            product: product[0],
+            pageTitle: "Edit Product",
+            path: '/products/updatePath'
+        })
     });
 };
-
 productController.update = (req, res) => {
+    console.log(parseInt(req.body.quantity))
     const product = new Product(req.body.productName, req.body.quantity, req.body.price, req.body.image);
     product.update(req.params.id);
-    res.json(product)
+    res.json({
+        success: true,
+        product: product
+    });
 }
 
 
