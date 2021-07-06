@@ -10,9 +10,21 @@ cartController.fetchAllToAdd = (req, res) => {
         });    });
 }
 
+cartController.addpath = (req, res) => {
+    const productId = parseInt(req.params.id);
+    Cart.fetchById(productId,(product)=>{
+        res.render("addform", {
+            pageTitle: "Add Product",
+            product: product[0],
+            path: "/cart/addpath"
+        });
+    })
+    
+}
+
 cartController.addToCart = (req, res) => {
-    Cart.addToCart(req.params.id, req.params.quantity, (products) => {
-        res.json(products)
+    Cart.addToCart(req.params.id, req.body.quantity, (products) => {
+        res.redirect('/cart')
     });
 }
 

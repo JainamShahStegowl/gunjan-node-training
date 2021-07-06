@@ -11,6 +11,16 @@ module.exports = class Cart {
             callback(rows)
         })
     }
+
+    static fetchById(id, callback) {
+        pool.query("SELECT * FROM `products` WHERE `productId`=?", [id], function (err, rows, fields) {
+            if (err) {
+                console.log(err)
+            }
+            callback(rows)
+        })
+    }
+    
     static addToCart(id, quantity, callback) {
         pool.query("INSERT INTO cart(productId,price,quantity) values(?,(SELECT price FROM products WHERE productId=?),?)", [id, id, quantity], function (err, rows, fields) {
             if (err) {
