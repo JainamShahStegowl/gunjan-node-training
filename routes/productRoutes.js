@@ -8,6 +8,6 @@ router.get('/list', productController.updOrDel)
 router.get('/updatePath/:id', productController.updatePath)
 router.get('/:id', productController.fetchById)
 router.delete('/:id', productController.deleteById)
-//router.post('/', productController.add)
+router.post('/', productController.add)
 router.put('/:id', productController.update)
 module.exports = router

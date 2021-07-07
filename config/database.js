@@ -1,15 +1,13 @@
 // MySQL connectivity
-const mysql = require('mysql2');
-
-const pool = mysql.createPool({
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('nodejs','root','root',{
     host: 'localhost',
-    user: 'root',
-    database: 'nodejs',
-    password: 'root'
-});
+    dialect: 'mysql',
+    logging: false
+}); 
 
 
-module.exports = pool;
+module.exports = sequelize;
 // pool.query("SELECT * FROM products WHERE productId<3", function(err, rows, fields) {
 //     // Connection is automatically released when query resolves
 //     if(err){
