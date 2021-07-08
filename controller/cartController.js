@@ -29,10 +29,10 @@ cartController.addToCart = async (req, res) => {
     const price = await Product.findByPk(req.params.id, {
         attributes: ['price'],
     });
-    console.log(price)
+    console.log(price.dataValues.price)
     await Cart.create({
         productId: req.params.id,
-        price: parseInt(price),
+        price: price.dataValues.price,
         quantity: req.body.quantity
     })
     res.redirect('/cart')
@@ -41,10 +41,7 @@ cartController.addToCart = async (req, res) => {
 cartController.viewInCart = async (req, res) => {
 
     const products = await Cart.findAll({
-        include: {
-            model: Product,
-            where: { productId: Cart.productId }
-        },
+        
         attributes: ['cartId', 'productId', 'productName', 'price', 'quantity', 'price' * 'quantity'],
     })
     res.render("viewInCart", {
