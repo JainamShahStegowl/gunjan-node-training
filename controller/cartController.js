@@ -3,7 +3,8 @@ const Cart = require('../model/cartModel')
 const Product = require('../model/productModel')
 
 cartController.fetchAllToAdd = async (req, res) => {
-    const products = await Product.findAll()
+    const products = await Product.findAll(
+        { attributes: ['productId', 'productName', 'price', 'quantity', 'image', 'createdAt', 'updatedAt'] })
     res.render("listAll", {
         pageTitle: "Products",
         products: products,
@@ -13,7 +14,8 @@ cartController.fetchAllToAdd = async (req, res) => {
 
 cartController.addpath = async (req, res) => {
     const productId = parseInt(req.params.id);
-    const product = await Product.findAll({
+    const product = await Product.findAll(
+        { attributes: ['productId', 'productName', 'price', 'quantity', 'image', 'createdAt', 'updatedAt'] }, {
         where: {
             productId: productId
         }
@@ -40,10 +42,8 @@ cartController.addToCart = async (req, res) => {
 
 cartController.viewInCart = async (req, res) => {
 
-    const products = await Cart.findAll({
-        
-        attributes: ['cartId', 'productId', 'productName', 'price', 'quantity', 'price' * 'quantity'],
-    })
+    const products = await Cart.findAll(
+        { attributes: ['productId', 'cartId', 'price', 'quantity'] })
     res.render("viewInCart", {
         pageTitle: "Cart",
         products: products,

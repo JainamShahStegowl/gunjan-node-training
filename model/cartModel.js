@@ -11,9 +11,6 @@ const Cart = sequelize.define('Cart', {
     productId: {
         type: DataTypes.STRING,
         allowNull: false,
-        include: [{     // User hasMany WorkingDays n:n
-            model: 'Product'
-        }]
     },
     price: {
         type: DataTypes.DECIMAL(30, 2),

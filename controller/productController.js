@@ -3,7 +3,9 @@ const Product = require('../model/productModel');
 const Cart = require('../model/cartModel');
 
 productController.list = async (req, res) => {
-    const products = await Product.findAll();
+    const products = await Product.findAll(
+        { attributes: ['productId', 'productName', 'price', 'quantity', 'image', 'createdAt', 'updatedAt'] }
+    );
     res.render("listProducts", {
         pageTitle: "Products",
         products: products,
@@ -14,7 +16,8 @@ productController.list = async (req, res) => {
 
 
 productController.updOrDel = async (req, res) => {
-    const products = await Product.findAll()
+    const products = await Product.findAll(
+        { attributes: ['productId', 'productName', 'price', 'quantity', 'image', 'createdAt', 'updatedAt'] })
     res.render("updateProducts", {
         pageTitle: "Products",
         products: products,
@@ -38,15 +41,11 @@ productController.deleteById = async (req, res) => {
             productId: req.params.id
         }
     }))
-
-
     res.json({
         success: true,
     });
 
 }
-
-
 
 productController.addpath = (req, res) => {
     res.render("addProducts", {
@@ -68,10 +67,8 @@ productController.add = async (req, res) => {
 
 productController.updatePath = async (req, res, next) => {
     const productId = parseInt(req.params.id);
-    const product = await Product.findByPk(productId, (product) => {
-        res.json(product)
-    })
-    console.log(product)
+    const product = await Product.findByPk(productId,
+        { attributes: ['productId', 'productName', 'price', 'quantity', 'image', 'createdAt', 'updatedAt'] })
     res.render('updateSingle', {
         product: product,
         pageTitle: "Edit Product",

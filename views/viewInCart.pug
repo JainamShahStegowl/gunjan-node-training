@@ -20,10 +20,10 @@ block content
                 if products.length > 0
                     each product in products
                         tr
-                            td #{product.productName}
+                            td #{product.productId}
                             td #{product.quantity}
                             td &#8377 #{product.price}
-                            td #{product.total_price}
+                            td #{product.price*product.quantity}
                             td.text-center.row.justify-content-center
                                 
                                 .col-3

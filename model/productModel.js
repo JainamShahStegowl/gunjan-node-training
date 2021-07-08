@@ -27,6 +27,4 @@ const Product = sequelize.define('Product', {
     }
 })
 //Product.belongsTo(Cart,{foreignKey: 'productId'})
-sequelize.sync()
-
 module.exports = Product;

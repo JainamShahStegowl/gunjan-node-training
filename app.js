@@ -1,6 +1,6 @@
 const express = require('express');
 
-const sequelize=require('./config/database')
+const sequelize = require('./config/database')
 const router = require('./routes/productRoutes.js')
 const router1 = require('./routes/cartRoutes.js')
 //const dotenv=require('dotenv'.config());
@@ -9,6 +9,8 @@ const path = require('path');
 
 app.use(express.static(path.join(__dirname, 'public')));
 const pug = require('pug');
+const Cart = require('./model/cartModel');
+const Product = require('./model/productModel');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
@@ -23,9 +25,14 @@ app.use('/cart', router1)
 app.get('/', (req, res) => {
     res.render('layouts/main');
 })
-const PORT = process.env.PORT||5000;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, (err) => {
     if (err) throw err;
     console.log('server on port:' + PORT)
 })
+Cart.hasMany(Product, {
+    foreignKey: 'ProductId'
+})
+Product.belongsTo(Cart)
+sequelize.sync()
