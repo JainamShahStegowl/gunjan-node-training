@@ -1,4 +1,4 @@
-const {Sequelize,DataTypes} = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database')
 
 const Product = sequelize.define('Product', {
@@ -25,6 +25,6 @@ const Product = sequelize.define('Product', {
         allowNull: false,
     }
 })
-sequelize.sync() 
+sequelize.sync()
 
 module.exports = Product;

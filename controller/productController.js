@@ -2,7 +2,7 @@ const productController = {}
 const Product = require('../model/productModel');
 const Cart = require('../model/cartModel');
 
-productController.list = async(req, res) => {
+productController.list = async (req, res) => {
     const products = await Product.findAll();
     res.render("listProducts", {
         pageTitle: "Products",
@@ -13,7 +13,7 @@ productController.list = async(req, res) => {
 
 
 
-productController.updOrDel = async(req, res) => {
+productController.updOrDel = async (req, res) => {
     const products = await Product.findAll()
     res.render("updateProducts", {
         pageTitle: "Products",
@@ -22,23 +22,23 @@ productController.updOrDel = async(req, res) => {
     });
 }
 
-productController.fetchById = async(req, res) => {
+productController.fetchById = async (req, res) => {
     await Product.findByPk(req.params.id, (product) => {
         res.json(product)
     })
 }
 
-productController.deleteById = async(req, res) => {
+productController.deleteById = async (req, res) => {
     const success = await Cart.destroy({
         where: {
             productId: req.params.id
         }
-     },Product.destroy({
+    }, Product.destroy({
         where: {
             productId: req.params.id
         }
     }))
-            
+
 
     res.json({
         success: true,
@@ -55,14 +55,14 @@ productController.addpath = (req, res) => {
     });
 }
 
-productController.add = async(req, res) => {
-    product=await Product.create({
+productController.add = async (req, res) => {
+    product = await Product.create({
         productName: req.body.productName,
         quantity: req.body.quantity,
         price: req.body.price,
         image: req.body.image
     })
-         //res.json(product)
+    //res.json(product)
     res.redirect('/products')
 }
 
@@ -80,13 +80,13 @@ productController.updatePath = async (req, res, next) => {
 
 };
 productController.update = async (req, res) => {
-    const product =await Product.update({
+    const product = await Product.update({
         productName: req.body.productName,
         quantity: req.body.quantity,
         price: req.body.price,
         image: req.body.image
-    },{
-        where:{
+    }, {
+        where: {
             productId: req.params.id,
         }
     }
