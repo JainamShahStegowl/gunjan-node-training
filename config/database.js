@@ -1,4 +1,4 @@
-// MySQL connectivity
+// database connectivity
 const Sequelize = require('sequelize');
 const sequelize = new Sequelize('nodejs','root','root',{
     host: 'localhost',
@@ -8,12 +8,3 @@ const sequelize = new Sequelize('nodejs','root','root',{
 
 
 module.exports = sequelize;
-// pool.query("SELECT * FROM products WHERE productId<3", function(err, rows, fields) {
-//     // Connection is automatically released when query resolves
-//     if(err){
-//         console.log(err)
-//     }
-//     console.log(rows)
-//  })
-
-// requiring product routes

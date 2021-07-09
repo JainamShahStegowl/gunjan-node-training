@@ -1,6 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database')
-const Product = require('../model/productModel')
 const Cart = sequelize.define('Cart', {
     cartId: {
         type: DataTypes.INTEGER,
@@ -9,7 +8,7 @@ const Cart = sequelize.define('Cart', {
         autoIncrement: true,
     },
     productId: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: false,
     },
     price: {

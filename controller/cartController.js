@@ -28,13 +28,10 @@ cartController.addpath = async (req, res) => {
 }
 
 cartController.addToCart = async (req, res) => {
-    const price = await Product.findByPk(req.params.id, {
-        attributes: ['price'],
-    });
-    console.log(price.dataValues.price)
+    const product = await Product.findByPk(req.params.id);
     await Cart.create({
-        productId: req.params.id,
-        price: price.dataValues.price,
+        productId: product.productId,
+        price: product.price,
         quantity: req.body.quantity
     })
     res.redirect('/cart')
