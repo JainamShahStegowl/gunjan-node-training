@@ -5,6 +5,8 @@ const router = require('./routes/productRoutes.js')
 const router1 = require('./routes/cartRoutes.js')
 const Cart = require('./model/cartModel');
 const Product = require('./model/productModel');
+const User = require('./model/userModel');
+const CartItem = require('./model/cartItem');
 const app = express();
 const path = require('path');
 
@@ -24,11 +26,36 @@ app.get('/', (req, res) => {
     res.render('layouts/main');
 })
 const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, (err) => {
-    if (err) throw err;
-    console.log('server on port:' + PORT)
-})
+Product.belongsTo(User, {
+    constraints: true,
+    onDelete: 'CASCADE'
+});
+User.hasMany(Product);
 Product.hasMany(Cart); 
-Cart.belongsTo(Product); 
+Cart.belongsToMany(Product, {through: CartItem});
+Product.belongsToMany(Cart, {through: CartItem});
 sequelize.sync()
+    .then((result) => {
+        // find a default user
+        return User.findByPk(1);
+    })
+    .then(user => {
+        // if no default user is found create one
+        if (!user) {
+            return User.create({
+                name: "Gunjan Vazirani",
+                email: "gunjan.stegowl@gmail.com"
+            });
+        }
+        // resolve the promise and return the user
+        return Promise.resolve(user);
+    })
+
+    .then((cart) => {
+        app.listen(PORT, () => {
+            console.log("listening at port "+PORT);
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+    })

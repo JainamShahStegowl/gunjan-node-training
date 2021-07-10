@@ -4,7 +4,7 @@ const Cart = require('../model/cartModel');
 
 productController.list = async (req, res) => {
     const products = await Product.findAll(
-        { attributes: ['productId', 'productName', 'price', 'quantity', 'image', 'createdAt', 'updatedAt'] }
+        
     );
     res.render("listProducts", {
         pageTitle: "Products",
@@ -16,8 +16,7 @@ productController.list = async (req, res) => {
 
 
 productController.updOrDel = async (req, res) => {
-    const products = await Product.findAll(
-        { attributes: ['productId', 'productName', 'price', 'quantity', 'image', 'createdAt', 'updatedAt'] })
+    const products = await Product.findAll()
     res.render("updateProducts", {
         pageTitle: "Products",
         products: products,
@@ -66,9 +65,8 @@ productController.add = async (req, res) => {
 }
 
 productController.updatePath = async (req, res, next) => {
-    const productId = parseInt(req.params.id);
-    const product = await Product.findByPk(productId,
-        { attributes: ['productId', 'productName', 'price', 'quantity', 'image', 'createdAt', 'updatedAt'] })
+    const id = parseInt(req.params.id);
+    const product = await Product.findByPk(id)
     res.render('updateSingle', {
         product: product,
         pageTitle: "Edit Product",
@@ -84,7 +82,7 @@ productController.update = async (req, res) => {
         image: req.body.image
     }, {
         where: {
-            productId: req.params.id,
+            id: req.params.id,
         }
     }
     )
