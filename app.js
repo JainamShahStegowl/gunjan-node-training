@@ -18,6 +18,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use((req, res, next) => {
+    User.findByPk(1)
+        .then((user) => {
+            req.user = user;
+            console.log(req.user)
+            next();
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+})
 
 app.use('/products', router)
 app.use('/cart', router1)
@@ -25,6 +36,8 @@ app.use('/cart', router1)
 app.get('/', (req, res) => {
     res.render('layouts/main');
 })
+
+
 const PORT = process.env.PORT || 5000;
 Product.belongsTo(User, {
     constraints: true,

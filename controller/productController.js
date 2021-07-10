@@ -3,9 +3,7 @@ const Product = require('../model/productModel');
 const Cart = require('../model/cartModel');
 
 productController.list = async (req, res) => {
-    const products = await Product.findAll(
-        
-    );
+    const products = await req.user.getProducts();
     res.render("listProducts", {
         pageTitle: "Products",
         products: products,
@@ -16,7 +14,7 @@ productController.list = async (req, res) => {
 
 
 productController.updOrDel = async (req, res) => {
-    const products = await Product.findAll()
+    const products = await req.user.getProducts();
     res.render("updateProducts", {
         pageTitle: "Products",
         products: products,
@@ -31,15 +29,11 @@ productController.fetchById = async (req, res) => {
 }
 
 productController.deleteById = async (req, res) => {
-    const success = await Cart.destroy({
+    Product.destroy({
         where: {
-            productId: req.params.id
+            id: req.params.id
         }
-    }, Product.destroy({
-        where: {
-            productId: req.params.id
-        }
-    }))
+    })
     res.json({
         success: true,
     });
@@ -54,7 +48,7 @@ productController.addpath = (req, res) => {
 }
 
 productController.add = async (req, res) => {
-    product = await Product.create({
+    product = await req.user.createProduct({
         productName: req.body.productName,
         quantity: req.body.quantity,
         price: req.body.price,
