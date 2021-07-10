@@ -20,7 +20,7 @@ block content
                 if products.length > 0
                     each product in products
                         tr
-                            td #{product.productId}
+                            td #{product.Product.dataValues.productName}
                             td #{product.quantity}
                             td &#8377 #{product.price}
                             td #{product.price*product.quantity}

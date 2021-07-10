@@ -10,7 +10,8 @@ block content
     .row.justify-content-center
         table.table
             thead 
-                tr
+                tr  
+                    th Image
                     th Product Name
                     th Quantity
                     th Price
@@ -20,6 +21,8 @@ block content
                 if products.length > 0
                     each product in products
                         tr
+                            td 
+                                img(src=product.image alt='' style='width:50px; height:50px;') 
                             td #{product.productName}
                             td #{product.quantity}
                             td &#8377 #{product.price}

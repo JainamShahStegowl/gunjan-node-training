@@ -11,15 +11,18 @@ block content
         table.table
             thead 
                 tr
+                    th Image
                     th Product Name
                     th Quantity
-                    th Price
                     //th Id
-                    th.text-center Action
+                    th Price 
+                    th Action
             tbody
                 if products.length > 0
                     each product in products
                         tr
+                            td 
+                                img(src=product.image alt='' style='width:50px; height:50px;') 
                             td #{product.productName}
                             if product.quantity==0
                                 td Sold Out!!
@@ -29,7 +32,7 @@ block content
                                 td Available
                             td &#8377 #{product.price}
                             //td #{product.productId}
-                            td.text-center.row.justify-content-center
+                            td.justify-content-center
                                 .col-3
                                     a.btn.btn-primary(href='/cart/addpath/'+product.productId) Add
                                 

@@ -9,12 +9,15 @@ block content
         div.row.justify-content-center
             div.col-5
                 .row.text-center.mb-3
+                    img(src=product.image alt='' class="img-responsive" style="width:50%") 
+
+                .row.text-center.mb-3
                     h4.display-6 Product Name: #{product.productName}
                 .row.text-center.mb-3
                     h4 Price: &#8377 #{product.price}
                 div.mb-3
                     label.form-label(for="quantity") Quantity
-                    input.form-control(type="number" id="age" name="quantity" value=1)
+                    input.form-control(type="number" id="quantity" name="quantity" value=1)
                 div.text-center
                     input(type="hidden" id="ProductId" name="ProductId" value=product.productId)   
                 div.text-center

@@ -3,6 +3,8 @@ const express = require('express');
 const sequelize = require('./config/database')
 const router = require('./routes/productRoutes.js')
 const router1 = require('./routes/cartRoutes.js')
+const Cart = require('./model/cartModel');
+const Product = require('./model/productModel');
 const app = express();
 const path = require('path');
 
@@ -27,4 +29,6 @@ app.listen(PORT, (err) => {
     if (err) throw err;
     console.log('server on port:' + PORT)
 })
-sequelize.sync();
+Product.hasMany(Cart); 
+Cart.belongsTo(Product); 
+sequelize.sync()

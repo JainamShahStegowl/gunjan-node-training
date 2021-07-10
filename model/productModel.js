@@ -1,6 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
-
+const sequelize = require('../config/database')
 const Product = sequelize.define('Product', {
     productId: {
         type: DataTypes.INTEGER,
@@ -25,5 +24,4 @@ const Product = sequelize.define('Product', {
         allowNull: false,
     }
 })
-//Product.belongsTo(Cart,{foreignKey: 'productId'})
 module.exports = Product;

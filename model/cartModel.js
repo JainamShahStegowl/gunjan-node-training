@@ -1,15 +1,12 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database')
+const sequelize = require('../config/database');
+const Product = require('./productModel');
 const Cart = sequelize.define('Cart', {
     cartId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
         autoIncrement: true,
-    },
-    productId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
     },
     price: {
         type: DataTypes.DECIMAL(30, 2),
@@ -20,5 +17,4 @@ const Cart = sequelize.define('Cart', {
         allowNull: false,
     },
 })
-//Cart.hasMany(Product,{foreignKey:'productId'})
 module.exports = Cart;
