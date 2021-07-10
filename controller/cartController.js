@@ -26,7 +26,6 @@ cartController.addpath = async (req, res) => {
         path: "/cart/addpath"
     });
 }
-
 cartController.addToCart = async (req, res) => {
     const product = await Product.findByPk(req.params.id);
     await Cart.create({
