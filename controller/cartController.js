@@ -3,7 +3,7 @@ const Cart = require('../model/cartModel')
 const Product = require('../model/productModel')
 
 cartController.fetchAllToAdd = async (req, res) => {
-    const products = await Product.findAll()
+    const products = await req.user.getProducts()
     res.render("listAll", {
         pageTitle: "Products",
         products: products,
