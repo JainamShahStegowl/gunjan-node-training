@@ -22,7 +22,7 @@ app.use((req, res, next) => {
     User.findByPk(1)
         .then((user) => {
             req.user = user;
-            console.log(req.user)
+            //console.log(req.user)
             next();
         })
         .catch((err) => {
