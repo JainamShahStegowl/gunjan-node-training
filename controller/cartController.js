@@ -44,27 +44,26 @@ cartController.addToCart = async (req, res) => {
 cartController.viewInCart = async (req, res) => {
 
     const cartItem = await CartItem.findAll({raw:true})
-    const fromCartItem=cartItem.map(async (item)=>{
+    const all=await Promise.all(cartItem.map(async (item)=>{
         const product = await Product.findByPk(item.ProductId,{raw:true})
         //console.log(product)
         item.productName=product.productName
         item.price=product.price
         return item
-    })
-    fromCartItem.then
-        console.log("asdjfhfklfnasdn"+fromCartItem)
-    // res.render("viewInCart", {
-    //     pageTitle: "Cart",
-    //     products: product,
-    //     path: '/cart/inCart'
-    // });
+    }))
+    //console.log(all);
+    res.render("viewInCart", {
+        pageTitle: "Cart",
+        products: all,
+        path: '/cart/inCart'
+    });
     // res.send(product)
 }
 
 cartController.deleteById = async (req, res) => {
-    await Cart.destroy({
+    await CartItem.destroy({
         where: {
-            cartId: req.params.id
+            id: req.params.id
         }
     })
     res.json({

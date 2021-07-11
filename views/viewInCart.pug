@@ -20,14 +20,14 @@ block content
                 if products.length > 0
                     each product in products
                         tr
-                            td #{product.name}
+                            td #{product.productName}
                             td #{product.quantity}
                             td &#8377 #{product.price}
                             td #{product.price*product.quantity}
                             td.text-center.row.justify-content-center
                                 
                                 .col-3
-                                    button.btn.btn-danger.delete-btn(id="deleteBtn" + product.cartId data-id=product.cartId) Delete
+                                    button.btn.btn-danger.delete-btn(id="deleteBtn" + product.id data-id=product.id) Delete
                 else
                     tr 
                         td.text-center(colspan="4") No Data Found

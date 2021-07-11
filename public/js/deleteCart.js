@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('.delete-btn').on('click', function (e) {
 
         let id = $(this).data('id');
-
+        console.log(id)
         $.ajax({
             type: "delete",
             url: "/cart/" + id,

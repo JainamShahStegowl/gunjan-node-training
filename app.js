@@ -1,5 +1,5 @@
+require('dotenv').config()
 const express = require('express');
-
 const sequelize = require('./config/database')
 const router = require('./routes/productRoutes.js')
 const router1 = require('./routes/cartRoutes.js')
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 })
 
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT;
 Product.belongsTo(User, {
     constraints: true,
     onDelete: 'CASCADE'
