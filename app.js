@@ -44,9 +44,9 @@ Product.belongsTo(User, {
     onDelete: 'CASCADE'
 });
 User.hasMany(Product);
-Product.hasMany(Cart); 
-Cart.belongsToMany(Product, {through: CartItem});
-Product.belongsToMany(Cart, {through: CartItem});
+Product.hasMany(Cart);
+Cart.belongsToMany(Product, { through: CartItem });
+Product.belongsToMany(Cart, { through: CartItem });
 sequelize.sync()
     .then((result) => {
         // find a default user
@@ -66,7 +66,7 @@ sequelize.sync()
 
     .then((cart) => {
         app.listen(PORT, () => {
-            console.log("listening at port "+PORT);
+            console.log("listening at port " + PORT);
         });
     })
     .catch((err) => {

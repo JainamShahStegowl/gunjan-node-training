@@ -2,9 +2,8 @@ const cartController = {}
 const CartItem = require('../model/cartItem')
 const Cart = require('../model/cartModel')
 const Product = require('../model/productModel')
-const User = require('../model/userModel')
 
-
+// Fetch data to add
 cartController.fetchAllToAdd = async (req, res) => {
     const products = await req.user.getProducts()
     res.render("listAll", {
@@ -14,25 +13,25 @@ cartController.fetchAllToAdd = async (req, res) => {
     });
 }
 
+//controller for route of add form 
 cartController.addpath = async (req, res) => {
     const productId = parseInt(req.params.id);
     //console.log(req.params.id)
     const product = await Product.findByPk(productId)
-        res.render("addform", {
+    res.render("addform", {
         pageTitle: "Add Product",
         product: product,
         path: "/cart/addpath"
     });
 }
 
+//add product to cart
 cartController.addToCart = async (req, res) => {
     const product = await Product.findByPk(req.params.id);
-    userId=req.user.id
-    let cart= await Cart.create({
+    userId = req.user.id
+    let cart = await Cart.create({
         ProductId: product.id
     })
-    console.log(userId)
-    console.log(product.id)
     await CartItem.create({
         ProductId: product.id,
         cartId: cart.id,
@@ -41,25 +40,23 @@ cartController.addToCart = async (req, res) => {
     res.redirect('/cart')
 }
 
+//view products added in the cart
 cartController.viewInCart = async (req, res) => {
-
-    const cartItem = await CartItem.findAll({raw:true})
-    const all=await Promise.all(cartItem.map(async (item)=>{
-        const product = await Product.findByPk(item.ProductId,{raw:true})
-        //console.log(product)
-        item.productName=product.productName
-        item.price=product.price
+    const cartItem = await CartItem.findAll({ raw: true })
+    const inCart = await Promise.all(cartItem.map(async (item) => {
+        const product = await Product.findByPk(item.ProductId, { raw: true })
+        item.productName = product.productName
+        item.price = product.price
         return item
     }))
-    //console.log(all);
     res.render("viewInCart", {
         pageTitle: "Cart",
-        products: all,
+        products: inCart,
         path: '/cart/inCart'
     });
-    // res.send(product)
 }
 
+//remove product from cart
 cartController.deleteById = async (req, res) => {
     await CartItem.destroy({
         where: {

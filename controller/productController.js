@@ -2,6 +2,7 @@ const productController = {}
 const Product = require('../model/productModel');
 const Cart = require('../model/cartModel');
 
+//view all the products
 productController.list = async (req, res) => {
     const products = await req.user.getProducts();
     res.render("listProducts", {
@@ -11,8 +12,7 @@ productController.list = async (req, res) => {
     });
 }
 
-
-
+//update or delete a product
 productController.updOrDel = async (req, res) => {
     const products = await req.user.getProducts();
     res.render("updateProducts", {
@@ -22,12 +22,14 @@ productController.updOrDel = async (req, res) => {
     });
 }
 
+//fetch single product
 productController.fetchById = async (req, res) => {
     await Product.findByPk(req.params.id, (product) => {
         res.json(product)
     })
 }
 
+//removing a product from the list of products
 productController.deleteById = async (req, res) => {
     Product.destroy({
         where: {
@@ -40,6 +42,7 @@ productController.deleteById = async (req, res) => {
 
 }
 
+//controller for route of add form 
 productController.addpath = (req, res) => {
     res.render("addProducts", {
         pageTitle: "Add Product",
@@ -47,6 +50,7 @@ productController.addpath = (req, res) => {
     });
 }
 
+//add new product to the list
 productController.add = async (req, res) => {
     product = await req.user.createProduct({
         productName: req.body.productName,
@@ -58,6 +62,7 @@ productController.add = async (req, res) => {
     res.redirect('/products')
 }
 
+//controller for route of update form 
 productController.updatePath = async (req, res, next) => {
     const id = parseInt(req.params.id);
     const product = await Product.findByPk(id)
@@ -68,17 +73,16 @@ productController.updatePath = async (req, res, next) => {
     })
 
 };
+
+//controller for route of update form 
 productController.update = async (req, res) => {
     const product = await Product.update({
         productName: req.body.productName,
         quantity: req.body.quantity,
         price: req.body.price,
         image: req.body.image
-    }, {
-        where: {
-            id: req.params.id,
-        }
-    }
+    },
+        { where: { id: req.params.id } }
     )
     console.log(Product)
     res.json({
