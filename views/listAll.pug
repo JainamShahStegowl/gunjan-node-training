@@ -34,11 +34,10 @@ block content
                             //td #{product.productId}
                             td.justify-content-center
                                 .col-3
-                                    a.btn.btn-primary(href='/cart/addpath/'+product.id) Add
+                                    a.btn.btn-primary(href='/cart/addpath/'+product._id) Add
                                 
                 else
                     tr 
                         td.text-center(colspan="4") No Data Found
 
-block scripts 
-    script(src="/js/deleteProduct.js")                     
+                    

@@ -5,7 +5,7 @@ block content
         h2.display-5 Add Product
 
 
-    form(action="/cart/"+product.id method="post")
+    form(action="/cart/"+product._id method="post")
         div.row.justify-content-center
             div.col-5
                 .row.text-center.mb-3
@@ -19,6 +19,6 @@ block content
                     label.form-label(for="quantity") Quantity
                     input.form-control(type="number" id="quantity" name="quantity" value=1)
                 div.text-center
-                    input(type="hidden" id="ProductId" name="ProductId" value=product.id)   
+                    input(type="hidden" id="ProductId" name="ProductId" value=product._id)   
                 div.text-center
                     button.btn.btn-primary(type="submit") Submit

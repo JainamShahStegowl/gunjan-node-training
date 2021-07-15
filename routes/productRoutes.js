@@ -10,8 +10,6 @@ router.get('/addpath', productController.addpath)
 router.get('/list', productController.updOrDel)
 //update product form
 router.get('/updatePath/:id', productController.updatePath)
-//fetch one product
-router.get('/:id', productController.fetchById)
 //delete a product
 router.delete('/:id', productController.deleteById)
 //add a product

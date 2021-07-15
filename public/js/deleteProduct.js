@@ -1,8 +1,6 @@
 $(document).ready(function () {
     $('.delete-btn').on('click', function (e) {
-
         let id = $(this).data('id');
-
         $.ajax({
             type: "delete",
             url: "/products/" + id,
@@ -26,7 +24,6 @@ $(document).ready(function () {
                                 window.location.reload();
                             })
                         }
-
                     })
                 }
             }

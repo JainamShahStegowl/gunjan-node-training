@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use((req, res, next) => {
-    const query=User.where({'_id':'60f0081dbd15495d5467873a'})
+    const query = User.where({ '_id': '60f0081dbd15495d5467873a' })
     query.findOne()
         .then((user) => {
             req.user = user;
@@ -38,27 +38,10 @@ app.use((req, res, next) => {
         })
 })
 
- app.use('/products', router)
- app.use('/cart', router1)
-
-// app.get('/', (req, res) => {
-//     res.render('layouts/main');
-// })
-
+app.use('/products', router)
+app.use('/cart', router1)
 
 const PORT = process.env.PORT;
-// Product.belongsTo(User, {
-//     constraints: true,
-//     onDelete: 'CASCADE'
-// });
-// User.hasMany(Product);
-// Product.hasMany(Cart);
-// Cart.belongsToMany(Product, { through: CartItem });
-// Product.belongsToMany(Cart, { through: CartItem });
-
-
-
-
 app.listen(PORT, () => {
     console.log("listening at port " + PORT);
 });

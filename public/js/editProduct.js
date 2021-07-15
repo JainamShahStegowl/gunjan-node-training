@@ -16,7 +16,6 @@ $(document).ready(function () {
 
         let formData = $('#editForm').serializeArray();
         let id = $('#id').val();
-        console.log(id)
         let data = {};
 
         formData.forEach(({ name, value }) => {
