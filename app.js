@@ -1,14 +1,22 @@
 require('dotenv').config()
 const express = require('express');
-const sequelize = require('./config/database')
 const router = require('./routes/productRoutes.js')
 const router1 = require('./routes/cartRoutes.js')
 const Cart = require('./model/cartModel');
 const Product = require('./model/productModel');
-const User = require('./model/userModel');
+const User = require('./model/userModel').Users;
 const CartItem = require('./model/cartItem');
 const app = express();
 const path = require('path');
+const mongoose = require('mongoose')
+
+mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection
+
+db.on('error', error => {
+    console.error('Error in MongoDb connection: ' + error);
+})
+db.on('connected', () => console.log('Data Db connected'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
@@ -19,10 +27,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use((req, res, next) => {
-    User.findByPk(1)
+    const query=User.where({'_id':'60f0081dbd15495d5467873a'})
+    query.findOne()
         .then((user) => {
             req.user = user;
-            //console.log(req.user)
             next();
         })
         .catch((err) => {
@@ -30,45 +38,28 @@ app.use((req, res, next) => {
         })
 })
 
-app.use('/products', router)
-app.use('/cart', router1)
+ app.use('/products', router)
+ app.use('/cart', router1)
 
-app.get('/', (req, res) => {
-    res.render('layouts/main');
-})
+// app.get('/', (req, res) => {
+//     res.render('layouts/main');
+// })
 
 
 const PORT = process.env.PORT;
-Product.belongsTo(User, {
-    constraints: true,
-    onDelete: 'CASCADE'
-});
-User.hasMany(Product);
-Product.hasMany(Cart);
-Cart.belongsToMany(Product, { through: CartItem });
-Product.belongsToMany(Cart, { through: CartItem });
-sequelize.sync()
-    .then((result) => {
-        // find a default user
-        return User.findByPk(1);
-    })
-    .then(user => {
-        // if no default user is found create one
-        if (!user) {
-            return User.create({
-                name: "Gunjan Vazirani",
-                email: "gunjan.stegowl@gmail.com"
-            });
-        }
-        // resolve the promise and return the user
-        return Promise.resolve(user);
-    })
+// Product.belongsTo(User, {
+//     constraints: true,
+//     onDelete: 'CASCADE'
+// });
+// User.hasMany(Product);
+// Product.hasMany(Cart);
+// Cart.belongsToMany(Product, { through: CartItem });
+// Product.belongsToMany(Cart, { through: CartItem });
 
-    .then((cart) => {
-        app.listen(PORT, () => {
-            console.log("listening at port " + PORT);
-        });
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+
+
+
+app.listen(PORT, () => {
+    console.log("listening at port " + PORT);
+});
+

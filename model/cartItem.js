@@ -1,17 +1,14 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database')
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const CartItem = sequelize.define('cartItem', {
-    id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    }
+const CartItemSchema = Schema({
+    quantity: {type: String, required: true ,immutable: true},
+    createdAt: { type: Date, default: Date.now() },
+    updatedAt: { type: Date, default: Date.now() },
+    cartId: { type: Schema.Types.ObjectId, ref: 'carts', immutable: true },
+    ProductId: { type: Schema.Types.ObjectId, ref: 'products', immutable: true },
 });
 
-module.exports = CartItem
+const CartItems = mongoose.model('cartItems', CartItemSchema)
+
+module.exports = { "CartItems": CartItems }

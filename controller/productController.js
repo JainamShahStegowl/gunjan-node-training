@@ -1,20 +1,28 @@
 const productController = {}
-const Product = require('../model/productModel');
+const Product = require('../model/productModel').Products;
 const Cart = require('../model/cartModel');
+const mongoose = require('mongoose')
 
 //view all the products
 productController.list = async (req, res) => {
-    const products = await req.user.getProducts();
-    res.render("listProducts", {
-        pageTitle: "Products",
-        products: products,
-        path: '/products'
-    });
+    try {
+        const products = await Product.find();
+        res.render("listProducts", {
+            pageTitle: "Products",
+            products: products,
+            path: '/products'
+        });
+
+    }
+    catch (err) {
+        res.send(err)
+    }
 }
 
 //update or delete a product
 productController.updOrDel = async (req, res) => {
-    const products = await req.user.getProducts();
+    let UserId = mongoose.Types.ObjectId(req.user._id)
+    const products = await Product.find({ "UserId": UserId });
     res.render("updateProducts", {
         pageTitle: "Products",
         products: products,
@@ -22,24 +30,13 @@ productController.updOrDel = async (req, res) => {
     });
 }
 
-//fetch single product
-productController.fetchById = async (req, res) => {
-    await Product.findByPk(req.params.id, (product) => {
-        res.json(product)
-    })
-}
-
 //removing a product from the list of products
 productController.deleteById = async (req, res) => {
-    Product.destroy({
-        where: {
-            id: req.params.id
-        }
-    })
+    const product = await Product.find({ "_id": mongoose.Types.ObjectId(req.params.id) })
+    product[0].delete()
     res.json({
         success: true,
     });
-
 }
 
 //controller for route of add form 
@@ -52,11 +49,12 @@ productController.addpath = (req, res) => {
 
 //add new product to the list
 productController.add = async (req, res) => {
-    product = await req.user.createProduct({
+    product = await Product.create({
         productName: req.body.productName,
         quantity: req.body.quantity,
         price: req.body.price,
-        image: req.body.image
+        image: req.body.image,
+        UserId: req.user._id
     })
     //res.json(product)
     res.redirect('/products')
@@ -64,27 +62,27 @@ productController.add = async (req, res) => {
 
 //controller for route of update form 
 productController.updatePath = async (req, res, next) => {
-    const id = parseInt(req.params.id);
-    const product = await Product.findByPk(id)
+    let id = mongoose.Types.ObjectId(req.params.id)
+    const product = await Product.findById(id)
     res.render('updateSingle', {
         product: product,
         pageTitle: "Edit Product",
         path: '/products/updatePath'
     })
-
 };
 
 //controller for route of update form 
 productController.update = async (req, res) => {
-    const product = await Product.update({
+
+    const product = await Product.find({ "_id": mongoose.Types.ObjectId(req.params.id) })
+    console.log(product)
+    await product[0].set({
         productName: req.body.productName,
         quantity: req.body.quantity,
         price: req.body.price,
-        image: req.body.image
-    },
-        { where: { id: req.params.id } }
-    )
-    console.log(Product)
+        image: req.body.image,
+    })
+    await product[0].save()
     res.json({
         success: true,
         product: product

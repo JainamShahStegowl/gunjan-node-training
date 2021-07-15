@@ -16,6 +16,7 @@ $(document).ready(function () {
 
         let formData = $('#editForm').serializeArray();
         let id = $('#id').val();
+        console.log(id)
         let data = {};
 
         formData.forEach(({ name, value }) => {
@@ -24,7 +25,7 @@ $(document).ready(function () {
 
         $.ajax({
             type: "put",
-            url: "/products/" + parseInt(id),
+            url: "/products/" + id,
             data: { ...data },
             dataType: "json",
             success: function (response) {
