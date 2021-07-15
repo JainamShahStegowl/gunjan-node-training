@@ -63,6 +63,7 @@ cartController.viewInCart = async (req, res) => {
             const product = await Product.findById(item.ProductId)
             item.productName = product.productName
             item.price = product.price
+            // console.log(item)
             return item
         }))
         res.render("viewInCart", {
