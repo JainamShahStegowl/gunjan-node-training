@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const Cart = require('../model/cartModel').Carts
 const CartItem = require('../model/cartItem').CartItems
 const Product = require('../model/productModel').Products
-const jwt=require('jsonwebtoken')
 // Fetch data to add
 cartController.fetchAllToAdd = async (req, res) => {
     try {

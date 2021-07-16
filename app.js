@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express');
 const router = require('./routes/productRoutes.js')
 const router1 = require('./routes/cartRoutes.js')
+const loginrouter = require('./routes/loginRoutes.js')
 const User = require('./model/userModel').Users;
 const app = express();
 const path = require('path');
@@ -37,6 +38,7 @@ app.use((req, res, next) => {
 
 app.use('/products', router)
 app.use('/cart', router1)
+app.use('/login', loginrouter)
 app.get('/',(req,res)=>{
     res.render("login", {
         pageTitle: "Login",
