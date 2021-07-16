@@ -2,10 +2,7 @@ require('dotenv').config()
 const express = require('express');
 const router = require('./routes/productRoutes.js')
 const router1 = require('./routes/cartRoutes.js')
-const Cart = require('./model/cartModel');
-const Product = require('./model/productModel');
 const User = require('./model/userModel').Users;
-const CartItem = require('./model/cartItem');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose')
@@ -40,7 +37,13 @@ app.use((req, res, next) => {
 
 app.use('/products', router)
 app.use('/cart', router1)
-
+app.get('/',(req,res)=>{
+    res.render("login", {
+        pageTitle: "Login",
+        // products: products,
+        path: '/'
+    });
+})
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log("listening at port " + PORT);
