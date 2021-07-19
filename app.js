@@ -39,13 +39,7 @@ app.use((req, res, next) => {
 app.use('/products', router)
 app.use('/cart', router1)
 app.use('/login', loginrouter)
-app.get('/',(req,res)=>{
-    res.render("login", {
-        pageTitle: "Login",
-        // products: products,
-        path: '/'
-    });
-})
+
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log("listening at port " + PORT);
