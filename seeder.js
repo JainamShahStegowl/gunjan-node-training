@@ -10,7 +10,8 @@ async function createUser() {
     if (user.length < 1) {
         const user = new Users({
             "name": "user",
-            "email": "user@gmail.com"
+            "email": "user@gmail.com",
+            "password":"seeder" 
         })
         await user.save()
     }
