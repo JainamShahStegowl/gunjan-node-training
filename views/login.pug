@@ -4,7 +4,7 @@ block content
   .row.text-center.mb-3
     h2.display-5 Login
   div#login.container
-    div: form(method='post', class='form-vertical')
+    div: form(method='post' action='/login/submit')
 
         //- if message.error
         //-   div.alert.alert-danger Missing username or password
@@ -15,11 +15,11 @@ block content
 
         div.form-group
           label Username:
-          input.form-control(name='username', autofocus)
+          input.form-control(name='username', id='username' autofocus)
 
         div.form-group
           label Password:
-          input.form-control(name='password', type='password')
+          input.form-control(name='password', id='password' type='password')
 
         div.form-actions
           input.btn.btn-primary(type='submit', value='Login')
