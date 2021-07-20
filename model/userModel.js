@@ -7,6 +7,7 @@ const UserSchema = Schema({
     password: {type: String, required: true},
     createdAt: { type: Date, default: Date.now() },
     updatedAt: { type: Date, default: Date.now() },
+    refreshToken: {type:String}
 });
 
 const Users = mongoose.model('users', UserSchema)

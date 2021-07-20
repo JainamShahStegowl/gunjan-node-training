@@ -25,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use((req, res, next) => {
-    const query = User.where({ '_id': '60f0081dbd15495d5467873a' })
+    const query = User.where({ '_id': '60f6b3d9b052b821a865e303' })
     query.findOne()
         .then((user) => {
             req.user = user;

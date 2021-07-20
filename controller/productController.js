@@ -19,18 +19,17 @@ productController.list = async (req, res) => {
 
 //update or delete a product
 productController.updOrDel = async (req, res) => {
-    try {
+    
         let UserId = mongoose.Types.ObjectId(req.user._id)
         const products = await Product.find({ "UserId": UserId });
+        console.log(req.user)
         res.render("updateProducts", {
             pageTitle: "Products",
             products: products,
             path: '/products/list'
         });
-    }
-    catch (err) {
-        res.send(err)
-    }
+    
+    
 }
 
 //removing a product from the list of products
