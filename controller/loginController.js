@@ -24,7 +24,7 @@ loginController.submit = async (req, res) => {
         const user = { 'email': email, 'password': password }
         accessToken = auth.generateToken(user)
         refreshToken = auth.generateRefreshToken(user)
-
+        
         //saving refreshToken in db
         await foundUser.set({
             refreshToken: refreshToken
@@ -34,9 +34,8 @@ loginController.submit = async (req, res) => {
             accessToken: accessToken,
             refreshToken: refreshToken,
         }
-        res.send(token)
     }
-
+    res.header();
 
 }
 
