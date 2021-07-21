@@ -35,7 +35,8 @@ loginController.submit = async (req, res) => {
             refreshToken: refreshToken,
         }
     }
-    res.header();
+    res.header('Authorization','Bearer '+accessToken);
+    res.redirect('/products')
 
 }
 
