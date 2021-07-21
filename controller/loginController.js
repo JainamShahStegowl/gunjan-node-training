@@ -1,4 +1,8 @@
 const loginController = {}
+if (typeof localStorage === "undefined" || localStorage === null) {
+    var LocalStorage = require('node-localstorage').LocalStorage;
+    localStorage = new LocalStorage('./scratch');
+}
 const auth = require('../auth')
 const mongoose = require('mongoose')
 const User = require('../model/userModel').Users
@@ -24,7 +28,7 @@ loginController.submit = async (req, res) => {
         const user = { 'email': email, 'password': password }
         accessToken = auth.generateToken(user)
         refreshToken = auth.generateRefreshToken(user)
-        
+
         //saving refreshToken in db
         await foundUser.set({
             refreshToken: refreshToken
@@ -35,22 +39,29 @@ loginController.submit = async (req, res) => {
             refreshToken: refreshToken,
         }
     }
-    res.header('Authorization','Bearer '+accessToken);
-    res.redirect('/products')
+    localStorage.setItem('accessToken', 'Bearer ' + accessToken)
+    localStorage.setItem('refreshToken', refreshToken)
 
+    //  access=localStorage.getItem('accessToken')
+    //console.log(access)
+    res.redirect('/products');
 }
 
 loginController.logout = async (req, res) => {
-    const refreshToken = req.body.refreshToken;
+    const refreshToken = localStorage.getItem('refreshToken');
     console.log()
     user = await User.findOne({
         refreshToken: refreshToken
     })
     console.log(user)
-    user.set({refreshToken:null})
+    user.set({ refreshToken: null })
     user.save()
-    res.json({
+    res.send({
         msg: "success"
     });
 }
+
+// loginController.handleaccess=(req,res)=>{
+
+// }
 module.exports = loginController
