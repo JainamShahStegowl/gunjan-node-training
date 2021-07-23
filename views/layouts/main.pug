@@ -16,7 +16,12 @@ html(lang="en")
             a(href="/products/list" class=( path==='/users/list' ? 'active' : '' )) Update Products
             a(href="/cart" class=( path === '/cart' ? 'active' : '' )) Add to cart
             a(href="/cart/inCart" class=( path==='/products/inCart' ? 'active' : '' )) In Cart
-
+            a 
+                form(action="/login/logout" method="post")
+                    button.btn.btn-success.btn-sm-right(type="submit") LogOut
+            
+                //- p.justify-content-center
+                //-     .col-3
         .container.mt-3
             block content
         block scripts
