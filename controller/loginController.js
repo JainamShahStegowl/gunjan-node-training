@@ -14,10 +14,12 @@ loginController.loginpage = (req, res) => {
     });
 }
 
+//controller for login button
 loginController.submit = async (req, res) => {
     let password = req.body.password
     let email = req.body.email
     const foundUser = await User.findOne({ email: email });
+    console.log(foundUser)
     if (!foundUser) {
         res.send({ message: 'User not registered' })
     }
@@ -47,6 +49,7 @@ loginController.submit = async (req, res) => {
     res.redirect('/products');
 }
 
+//controller for logout button
 loginController.logout = async (req, res) => {
     const refreshToken = localStorage.getItem('refreshToken');
     console.log()
@@ -61,7 +64,4 @@ loginController.logout = async (req, res) => {
     });
 }
 
-// loginController.handleaccess=(req,res)=>{
-
-// }
 module.exports = loginController

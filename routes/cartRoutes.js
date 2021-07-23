@@ -3,9 +3,9 @@ const router1 = express.Router();
 const cartController = require('../controller/cartController');
 
 //fetch all the products
-router1.get('/', cartController.fetchAllToAdd)
+router1.get('/',auth.authorization, cartController.fetchAllToAdd)
 //Add product form 
-router1.get('/addpath/:id', cartController.addpath)
+router1.get('/addpath/:id',auth.authorization, cartController.addpath)
 //add to cart
 router1.post('/:id', cartController.addToCart)
 //view cart
