@@ -7,7 +7,7 @@ const User = require('./model/userModel').Users;
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose')
-
+const cookieParser = require('cookie-parser')
 mongoose.connect(process.env.URL, { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 
@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser());
 app.use((req, res, next) => {
     const query = User.where({ '_id': '60f6b3d9b052b821a865e303' })
     query.findOne()

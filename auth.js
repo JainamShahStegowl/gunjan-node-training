@@ -1,10 +1,9 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
+
 auth = {}
-if (typeof localStorage === "undefined" || localStorage === null) {
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    localStorage = new LocalStorage('./scratch');
-}
+
 auth.generateToken = (user) => {
     return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
         expiresIn: '60s'
@@ -16,11 +15,10 @@ auth.generateRefreshToken = (user) => {
 }
 
 auth.authorization = (req, res, next) => {
-    token = localStorage.getItem('accessToken')
+    token = req.cookie('x-access-token')
     // let token = req.headers['authorization'];
     if (!token) return res.sendStatus(401);
     token = token.split(' ')[1];
-    console.log(token);
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
         req.user = user;

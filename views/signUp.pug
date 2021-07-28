@@ -1,0 +1,29 @@
+extends layouts/mainlog.pug
+
+block content
+  .row.text-center.mb-3
+    h2.display-5 SignUp
+  div#login.container
+    div: form(method='post' action='/login/signUser')
+
+        //- if message.error
+        //-   div.alert.alert-danger Missing username or password
+
+        //- else
+        //-   if message.success
+        //-     div.alert.alert-success You are now connected
+
+        div.form-group
+          label Name:
+          input.form-control(name='name', id='name' autofocus)
+        div.form-group
+          label Email:
+          input.form-control(name='email', id='email' type='email')
+        div.form-group
+          label Password:
+          input.form-control(name='password', id='password' type='password')
+
+        div.form-actions
+          input.btn.btn-primary(type='submit', value='Sign Up')
+
+        //- script(src="/js/registerUser.js") 
