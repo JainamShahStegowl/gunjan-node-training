@@ -1,7 +1,9 @@
 require('dotenv').config()
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser')
-
+const express = require('express');
+const app = express();
+app.use(cookieParser())
 auth = {}
 
 auth.generateToken = (user) => {
@@ -15,10 +17,8 @@ auth.generateRefreshToken = (user) => {
 }
 
 auth.authorization = (req, res, next) => {
-    token = req.cookie('x-access-token')
-    // let token = req.headers['authorization'];
+    let token = (req.headers.cookie.split(';'))[0].split('=')[1];
     if (!token) return res.sendStatus(401);
-    token = token.split(' ')[1];
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
         req.user = user;

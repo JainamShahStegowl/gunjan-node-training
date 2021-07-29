@@ -1,8 +1,4 @@
 const loginController = {}
-// if (typeof localStorage === "undefined" || localStorage === null) {
-//     var LocalStorage = require('node-localstorage').LocalStorage;
-//     localStorage = new LocalStorage('./scratch');
-// }
 const handleErrors = (err) => {
 
     let errors = { name: '', email: '', password: '' }
@@ -20,6 +16,8 @@ const handleErrors = (err) => {
 const auth = require('../auth')
 const mongoose = require('mongoose')
 const User = require('../model/userModel').Users
+
+//controller to render login user
 loginController.loginpage = (req, res) => {
     res.render("login", {
         pageTitle: "Login",
@@ -28,13 +26,15 @@ loginController.loginpage = (req, res) => {
     });
 }
 
+//controller to render signup page
 loginController.signUp = (req, res) => {
     res.render("signUp", {
         pageTitle: "SignUp",
-        // products: products,
         path: '/'
     });
 }
+
+//controller for signup user
 loginController.signUser = async (req, res) => {
     let { name, email, password } = req.body
     try {
@@ -79,28 +79,26 @@ loginController.submit = async (req, res) => {
             accessToken: accessToken,
             refreshToken: refreshToken,
         }
+        res.cookie('x-access-token', accessToken, { httpOnly: true });
+        res.cookie('refresh', refreshToken, { httpOnly: true });
+        console.log('a' + accessToken)
+
+        console.log(req.headers.cookie)
+        res.redirect('/products');
+
     }
-    res.cookie('x-access-token', accessToken, { httpOnly: true });
-    res.cookie('Set-Cookie', refreshToken, { httpOnly: true });
-    // localStorage.setItem('accessToken', 'Bearer ' + accessToken)
-    // localStorage.setItem('refreshToken', refreshToken)
-
-
-    res.redirect('/products');
 }
 
 //controller for logout button
 loginController.logout = async (req, res) => {
-    //const refreshToken = localStorage.getItem('refreshToken');
-    const refreshToken = req.cookie('Set-Cookie')
+    const refreshToken = (req.headers.cookie.split(';'))[1].split('=')[1]
+    console.log(refreshToken)
     user = await User.findOne({
         refreshToken: refreshToken
     })
     user.set({ refreshToken: null })
     user.save()
-    res.send({
-        msg: "success"
-    });
+    res.redirect('/login')
 }
 
 module.exports = loginController
