@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cookieParser());
 app.use((req, res, next) => {
-    const query = User.where({ '_id': '60f6b3d9b052b821a865e303' })
+    const query = User.where({ '_id': '61024e86d3ab741f24009a1f' })
     query.findOne()
         .then((user) => {
             req.user = user;

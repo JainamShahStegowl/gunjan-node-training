@@ -28,8 +28,6 @@ productController.updOrDel = async (req, res) => {
             products: products,
             path: '/products/list'
         });
-    
-    
 }
 
 //removing a product from the list of products
